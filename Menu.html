@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>menu</title>
+</head>
+<body>
+<ul id="menu"> </ul>
+
+<script type="text/javascript" >
+    function loadingMenu() {
+        var xHttp =new XMLHttpRequest();
+        xHttp.onload = function () {
+            var data = JSON.parse(this.responseText);
+            var list = data.data;
+            for (var i = 0; i< list.length; i++) {
+                var name = list[i].name;
+                var image = list[i].icon;
+                var str = `<li><img width="30" src="${image}" />  ${name}</li>`; // tuong duong voi "<li>" +name+"</li>";
+                var ul =document.getElementById("menu");
+                ul.innerHTML +=str;
+                console.log(name);
+            };
+        };
+        var link ="https://foodgroup.herokuapp.com/api/menu";
+        xHttp.open("get", link, true);
+        xHttp.send();
+    }
+    loadingMenu();
+</script>
+
+</body>
+</html>
